@@ -1,6 +1,6 @@
 package Sorting;
 
-public class Heapsort
+public class Heap
 {
     private static void BuildMaxHeap(int[] A)
     {
@@ -11,6 +11,11 @@ public class Heapsort
             MaxHeapify(A, heapSize, i);
         }
     }
+
+    public static void MaxHeapify(int[] A, int index)
+    {
+        
+    } 
 
     private static void MaxHeapify(int[] A, int heapSize, int index)
     {
