@@ -1,9 +1,12 @@
 package PriorityQueue;
 
 import Sorting.Task;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 public class MaxPriorityQueue {
     private Task[] Tasks;
+    private Dictionary<String, Integer> TaskMap = new Hashtable<String,Integer>();
     private int taskCount;
 
     public MaxPriorityQueue()
@@ -12,9 +15,33 @@ public class MaxPriorityQueue {
         taskCount = 0;
     }
 
-    public Boolean TaskAvailable()
+    public Boolean IsEmpty()
     {
-        return taskCount > 0;
+        return taskCount < 1;
+    }
+
+    public void UpdatePriority(String Name, int priority)
+    {
+        int index = TaskMap.get(Name);
+        if(Tasks[index].Priority == priority)
+        {
+            return;
+        }
+        else if(priority > Tasks[index].Priority)
+        {
+            Tasks[index].Priority = priority;
+            Maxify(Tasks[index]);
+        }
+        else
+        {
+            Tasks[index].Priority = priority;
+            MaxHeapify(Tasks, taskCount, index);
+        }
+    }
+
+    public void DecreasePriority()
+    {
+
     }
 
     public void Add(Task task)
@@ -35,6 +62,7 @@ public class MaxPriorityQueue {
         }
 
         task.Index = taskCount;
+        TaskMap.put(task.Name, task.Index);
         taskCount++;
         Maxify(task);
     }
@@ -43,6 +71,8 @@ public class MaxPriorityQueue {
     {
         Task task = Tasks[0];
         Tasks[0] = Tasks[taskCount-1];
+        Tasks[0].Index = 0;
+        TaskMap.put(Tasks[0].Name, 0);
         taskCount--;
         MaxHeapify(Tasks, taskCount, 0);
         return task;
@@ -52,12 +82,18 @@ public class MaxPriorityQueue {
      {
         //bottom up
         int i = task.Index;
-        while (i > 0 && Tasks[Parent(i)].Priority < Tasks[i].Priority) 
+        int j = Parent(i);
+        while (i > 0 && Tasks[j].Priority < Tasks[i].Priority) 
         {
             Task tmp = Tasks[i];
-            Tasks[i] = Tasks[Parent(i)];
-            Tasks[Parent(i)] = tmp;
-            i = Parent(i);     
+            Tasks[i] = Tasks[j];
+            Tasks[i].Index = i;
+            Tasks[j] = tmp;
+            Tasks[j].Index = j;
+            TaskMap.put(Tasks[i].Name, i);
+            TaskMap.put(Tasks[j].Name, j);
+            i = j;
+            j = Parent(i);
         }
      }
 
@@ -66,7 +102,7 @@ public class MaxPriorityQueue {
          return (int)Math.floor(i/2);
      }
  
-     private static void MaxHeapify(Task[] A, int heapSize, int index)
+     private void MaxHeapify(Task[] A, int heapSize, int index)
      {
         //top-down
          int left = Left(index);
@@ -91,6 +127,10 @@ public class MaxPriorityQueue {
              Task t = A[maxIndex];
              A[maxIndex] = A[index];
              A[index] = t;
+             A[index].Index = index;
+             A[maxIndex].Index = maxIndex;
+             TaskMap.put(A[index].Name, index);
+             TaskMap.put(A[maxIndex].Name, maxIndex);
              MaxHeapify(A, heapSize, maxIndex);
          }
      }

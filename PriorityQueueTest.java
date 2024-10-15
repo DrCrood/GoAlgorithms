@@ -17,16 +17,21 @@ public class PriorityQueueTest {
 
         Random ran = new Random();
         MaxPriorityQueue maxQueue = new MaxPriorityQueue();
-        for(int i = 0; i < 50; i++)
+        for(int i = 0; i < 20; i++)
         {
-            Task task = new Task(UUID.randomUUID().toString());
-            task.Priority = ran.nextInt(10);
+            Task task = new Task("TASK-"+i);
+            task.Priority = ran.nextInt(100);
             maxQueue.Add(task);
         }
-        int i = 0;
-        while (maxQueue.TaskAvailable()) {
+
+        maxQueue.UpdatePriority("TASK-5", 50);
+        maxQueue.UpdatePriority("TASK-10", 50);
+        maxQueue.UpdatePriority("TASK-7", 1);
+        maxQueue.UpdatePriority("TASK-17", 1);
+
+        while (!maxQueue.IsEmpty()) {
             Task task = maxQueue.Dequeue();
-            System.out.println(i++ + " : " + task.Priority);
+            System.out.println(task.Name + " : " + task.Priority + " - " + task.Index);
         }
 
     }
