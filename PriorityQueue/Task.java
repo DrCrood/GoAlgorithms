@@ -1,4 +1,4 @@
-package Sorting;
+package PriorityQueue;
 
 public class Task
 {

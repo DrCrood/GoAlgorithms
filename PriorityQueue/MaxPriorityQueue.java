@@ -1,6 +1,5 @@
 package PriorityQueue;
 
-import Sorting.Task;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
