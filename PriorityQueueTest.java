@@ -4,6 +4,8 @@ import java.util.Random;
 
 import PriorityQueue.MaxPriorityQueue;
 import PriorityQueue.Task;
+import Search.BiTree;
+import Search.Node;
 import Search.TopN;
 import Sorting.Heap;
 
@@ -28,9 +30,7 @@ public class PriorityQueueTest {
         }
 
         maxQueue.UpdatePriority("TASK-5", 50);
-        maxQueue.UpdatePriority("TASK-10", 50);
         maxQueue.UpdatePriority("TASK-7", 1);
-        maxQueue.UpdatePriority("TASK-17", 0);
 
         while (!maxQueue.IsEmpty()) {
             Task task = maxQueue.Dequeue();
@@ -45,5 +45,20 @@ public class PriorityQueueTest {
 
         //int[] top5 = TopN.FindByLoopOver(a, 5);
         int[] top52 = TopN.FindByPartition(a, 5);
+
+        BiTree tree = new BiTree();
+
+        for(int i = 0; i < 20; i++)
+        {
+            Node node = new Node();
+            node.Key = ran.nextInt(100);
+            tree.Insert(node);
+        }
+
+        System.out.println(tree.Maximum().Key);
+        System.out.println(tree.Minimum().Key);
+
+        tree.InorderWark(tree.Root);
+
     }
 }

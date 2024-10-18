@@ -2,7 +2,8 @@ package Search;
 
 import Sorting.QuickSort;
 
-public class TopN {
+public class TopN 
+{
     public static int[] FindByLoopOver(int[]A, int n)
     {
         int[] top = new int[n];
