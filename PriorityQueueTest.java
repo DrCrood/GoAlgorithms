@@ -1,10 +1,13 @@
 import java.util.Arrays;
 import Sorting.*;
 import java.util.Random;
+import java.util.*;
 
 import PriorityQueue.MaxPriorityQueue;
 import PriorityQueue.Task;
 import Search.BiTree;
+import Search.LCS;
+import Search.LongestPalindrome;
 import Search.Node;
 import Search.TopN;
 import Sorting.Heap;
@@ -60,5 +63,18 @@ public class PriorityQueueTest {
 
         tree.InorderWark(tree.Root);
 
+
+        int[] ai = new int[]{7, 1, 5, 1, 2, 3, 6, 3, 3, 8, 9, 5, 10};
+        int[] bi = new int[]{9,1, 7, 9, 1, 5, 3, 7, 6,7, 8, 7, 9, 6, 10};
+
+        int[] r = LCS.FindLCS(ai, bi);
+        System.out.println();
+        for (int i : r) {
+            System.out.print("-" + i);
+        }
+
+        String s = "qwertabcdefghgfedcbacharacterqwertyuiopoiuytrewq123aaabbbccddeddccbbbaaa";
+        String ps = LongestPalindrome.search(s);
+        System.out.println(ps);
     }
 }
